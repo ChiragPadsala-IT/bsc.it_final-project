@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quotes/home/home_screen.dart';
 import 'package:quotes/login/login_controller.dart';
+import 'package:quotes/screen/home/home_screen.dart';
 import 'package:quotes/signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -47,6 +47,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _utextEditingController,
+                  keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     hintText: "Enter Your Email",
@@ -67,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _ptextEditingController,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(
@@ -88,13 +90,15 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       _formkey.currentState!.save();
-                      logincontroller.loginWithEmailAndPassword(
+                      if (await logincontroller.loginWithEmailAndPassword(
                         email: email,
                         password: password,
-                      );
+                      )) {
+                        Get.offAllNamed(HomeScreen.path);
+                      }
                     }
                   },
                   child: const Text(
@@ -112,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: () async {
-                    if (await logincontroller.signInWithGoogle()) {
+                    if (await logincontroller.loginWithGoogle()) {
                       Get.toNamed(HomeScreen.path);
                     }
                   },
@@ -152,7 +156,7 @@ class LoginScreen extends StatelessWidget {
                           ..onTap = () {
                             Get.toNamed(SignUpScreen.path);
                           },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.blue,
                         ),
                       ),

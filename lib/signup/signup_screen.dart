@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:quotes/home/home_screen.dart';
 import 'package:quotes/login/login_screen.dart';
+import 'package:quotes/screen/home/home_screen.dart';
 import 'package:quotes/signup/signup_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -45,6 +45,7 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _utextEditingController,
+                  keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     hintText: "Enter Your Email",
@@ -65,6 +66,7 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _ptextEditingController,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(

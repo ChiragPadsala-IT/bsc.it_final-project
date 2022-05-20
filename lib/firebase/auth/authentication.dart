@@ -5,14 +5,10 @@ import 'package:quotes/component/connectivity.dart';
 import 'package:quotes/component/snakbar.dart';
 
 class myAuth {
-  GoogleSignIn? googleSignIn;
-  late FirebaseAuth firebaseAuth;
+  static GoogleSignIn? googleSignIn;
+  static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  myAuth() {
-    firebaseAuth = FirebaseAuth.instance;
-  }
-
-  Future signUpWithEmailAndPassword({
+  static Future signUpWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -47,7 +43,7 @@ class myAuth {
     }
   }
 
-  Future loginWithEmailAndPassword({
+  static Future loginWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -86,7 +82,7 @@ class myAuth {
     }
   }
 
-  Future<bool> signInWithGoogle() async {
+  static Future<bool> signInWithGoogle() async {
     print("1");
     try {
       if (await checkConnectivity()) {
@@ -95,24 +91,21 @@ class myAuth {
 
         final GoogleSignInAccount? googleUser = await googleSignIn?.signIn();
 
-        print(googleUser?.email);
-
         // Obtain the auth details from the request
         final GoogleSignInAuthentication? googleAuth =
             await googleUser?.authentication;
-        print(googleAuth?.accessToken);
         // Create a new credential
         final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
           idToken: googleAuth?.idToken,
+          accessToken: googleAuth?.accessToken,
         );
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        print(userCredential.user?.email);
+        // UserCredential userCredential =
+        //     await FirebaseAuth.instance.signInWithCredential(credential);
+        // print(userCredential.user?.email);
 
         // Once signed in, return the UserCredential
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
+        await firebaseAuth.signInWithCredential(credential);
+        print("*****************padsala*********************");
         return true;
       } else {
         showError(
@@ -138,15 +131,15 @@ class myAuth {
     }
   }
 
-  Future signOut() async {
+  static Future signOut() async {
     try {
       if (googleSignIn != null) {
-        Future.wait([
+        await Future.wait([
           firebaseAuth.signOut(),
           googleSignIn!.signOut(),
         ]);
       } else {
-        Future.wait([
+        await Future.wait([
           firebaseAuth.signOut(),
         ]);
       }

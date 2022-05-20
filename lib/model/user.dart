@@ -1,6 +1,6 @@
 class MyUser {
   late String id;
-  late String name;
+  late String username;
   late String phone;
   late String email;
   late String country;
@@ -9,8 +9,14 @@ class MyUser {
   MyUser({
     required this.id,
     required this.email,
-    this.name = "",
+    this.username = "",
     this.phone = "",
     this.country = "",
+  });
+
+  MyUser.Edit({
+    this.username = "",
+    this.country = "",
+    this.phone = "",
   });
 }

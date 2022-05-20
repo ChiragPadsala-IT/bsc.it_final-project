@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "333119771247",
+    "firebase_url": "https://quotes-76349-default-rtdb.firebaseio.com",
     "project_id": "quotes-76349",
     "storage_bucket": "quotes-76349.appspot.com"
   },

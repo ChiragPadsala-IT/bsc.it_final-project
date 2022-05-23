@@ -37,7 +37,7 @@ class RealTimeDatabase {
       print("*******************padsala*****************************");
       return true;
     } on FirebaseException catch (err) {
-      showError(
+      MySnakBar(
         message: err.message.toString(),
         icon: const Icon(
           Icons.error,
@@ -56,7 +56,7 @@ class RealTimeDatabase {
       print("*******************padsala*****************************");
       return true;
     } on FirebaseException catch (err) {
-      showError(
+      MySnakBar(
         message: err.message.toString(),
         icon: const Icon(
           Icons.error,
@@ -89,7 +89,7 @@ class RealTimeDatabase {
           .child("image")
           .set(l);
     } on FirebaseException catch (err) {
-      showError(
+      MySnakBar(
         message: err.message.toString(),
         icon: const Icon(
           Icons.error,
@@ -114,7 +114,7 @@ class RealTimeDatabase {
           .child(position)
           .remove();
     } on FirebaseException catch (err) {
-      showError(
+      MySnakBar(
         message: err.message.toString(),
         icon: const Icon(
           Icons.error,
@@ -125,25 +125,44 @@ class RealTimeDatabase {
     }
   }
 
-  static Future uploadQuote({required UploadQuote uploadQuote}) async {
-    try {
-      await dbrf.child("quotes").child(uploadQuote.time_stemp).set({
-        "image": uploadQuote.image,
-        "quote": uploadQuote.quote,
-        "quote_category": uploadQuote.quote_category,
-        "time_stemp": uploadQuote.time_stemp,
-        "uid": uploadQuote.uid,
-      });
-      return true;
-    } on FirebaseException catch (err) {
-      showError(
-        message: err.message.toString(),
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-        ),
-      );
-      return false;
-    }
-  }
+  // static Future uploadQuote({required UploadQuote uploadQuote}) async {
+  //   try {
+  //     await dbrf.child("quotes").child(uploadQuote.time_stemp).set({
+  //       "image": uploadQuote.image,
+  //       "quote": uploadQuote.quote,
+  //       "quote_category": uploadQuote.quote_category,
+  //       "time_stemp": uploadQuote.time_stemp,
+  //       "uid": uploadQuote.uid,
+  //     });
+  //     return true;
+  //   } on FirebaseException catch (err) {
+  //     showError(
+  //       message: err.message.toString(),
+  //       icon: const Icon(
+  //         Icons.error,
+  //         color: Colors.red,
+  //       ),
+  //     );
+  //     return false;
+  //   }
+  // }
+
+  // static void getd({required String category}) {
+  //   print("********************hello*****************************");
+  //   try {
+  //     dbrf.child("quotes").onValue.where((event) {
+  //       print("********************chirag*****************************");
+  //       print(event.snapshot);
+  //       return false;
+  //     });
+  //   } on FirebaseException catch (err) {
+  //     showError(
+  //       message: err.message.toString(),
+  //       icon: const Icon(
+  //         Icons.error,
+  //         color: Colors.red,
+  //       ),
+  //     );
+  //   }
+  // }
 }

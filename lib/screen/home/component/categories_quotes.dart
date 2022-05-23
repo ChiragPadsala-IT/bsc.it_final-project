@@ -1,12 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quotes/component/category_card.dart';
-import 'package:quotes/component/quote_card.dart';
-import 'dart:math';
-
+import 'package:quotes/screen/category_list_display_screen/category_list_screen.dart';
+import 'package:quotes/screen/category_list_display_screen/component/category_card.dart';
 import 'package:quotes/firebase/storage/real_firebase.dart';
-import 'package:quotes/screen/category_screen.dart';
 
 class CategoriesQuotes extends StatefulWidget {
   CategoriesQuotes({Key? key}) : super(key: key);
@@ -38,9 +35,9 @@ class _CategoriesQuotesState extends State<CategoriesQuotes> {
             List<DataSnapshot> l = dataSnapshot.children.toList();
             List k = l.map((DataSnapshot e) => e.key).toList();
 
-            print("*****************************************");
+            print("*******************chirag**********************");
             print(dataSnapshot.child(k[0]).child("image").value);
-            print("*****************************************");
+            print("********************padsala*********************");
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
@@ -49,27 +46,39 @@ class _CategoriesQuotesState extends State<CategoriesQuotes> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Quotes Category",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
+                      // const Text(
+                      //   "Quotes Category",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.w700,
+                      //     fontSize: 18,
+                      //   ),
+                      // ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10, bottom: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        color: Colors.grey[700],
+                        child: Text(
+                          "Quotes Category",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
                       ),
+
                       InkWell(
                         onTap: () {
-                          // Get.toNamed(CategoryScreen.path);
-                          print("******************************************");
-                          print("******************************************");
-                          print("******************************************");
-                          Get.dialog(QuoteCard());
-                          print("******************************************");
-                          print("******************************************");
-                          print("******************************************");
+                          Get.toNamed(CategoryListScreen.path);
                         },
                         child: Text(
                           "view all >>",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            color: Colors.orange[300],
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ],

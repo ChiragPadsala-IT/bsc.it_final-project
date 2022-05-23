@@ -2,23 +2,23 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:quotes/login/login_screen.dart';
 import 'package:quotes/screen/home/home_screen.dart';
-import 'package:quotes/signup/signup_controller.dart';
+import 'package:quotes/screen/login/login_controller.dart';
+import 'package:quotes/screen/signup/signup_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  static String path = "/signup_screen";
+class LoginScreen extends StatelessWidget {
+  static String path = "/login_screen";
 
-  SignUpScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _utextEditingController = TextEditingController();
   final TextEditingController _ptextEditingController = TextEditingController();
 
+  final logincontroller = Get.put(LoginController());
+
   late String email;
   late String password;
-
-  final signUpController = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                 Row(
                   children: const [
                     Text(
-                      "Sign Up",
+                      "Login",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -91,16 +91,16 @@ class SignUpScreen extends StatelessWidget {
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       _formkey.currentState!.save();
-                      if (await signUpController.signUpWithEmailAndPassword(
+                      if (await logincontroller.loginWithEmailAndPassword(
                         email: email,
                         password: password,
                       )) {
-                        Get.toNamed(HomeScreen.path);
+                        Get.offAllNamed(HomeScreen.path);
                       }
                     }
                   },
                   child: const Text(
-                    "Sign Up",
+                    "Login",
                     style: TextStyle(letterSpacing: 1),
                   ),
                   style: ButtonStyle(
@@ -114,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: () async {
-                    if (await signUpController.signInWithGoogle()) {
+                    if (await logincontroller.loginWithGoogle()) {
                       Get.toNamed(HomeScreen.path);
                     }
                   },
@@ -129,7 +129,7 @@ class SignUpScreen extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            "Sign Up with Google",
+                            "Login with Google",
                             style: TextStyle(letterSpacing: 1),
                           ),
                         ),
@@ -149,12 +149,12 @@ class SignUpScreen extends StatelessWidget {
                     text: "Do you don't have account?",
                     children: [
                       TextSpan(
-                        text: "\tLogin",
+                        text: "\tSign Up",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.offAllNamed(LoginScreen.path);
+                            Get.toNamed(SignUpScreen.path);
                           },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.blue,
                         ),
                       ),

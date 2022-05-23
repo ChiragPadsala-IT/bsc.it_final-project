@@ -1,18 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import "package:get/get.dart";
 import 'package:get_storage/get_storage.dart';
-import 'package:quotes/login/login_screen.dart';
-import 'package:quotes/screen/admin/quotes_category_screen.dart';
-import 'package:quotes/screen/category_screen.dart';
+import 'package:quotes/screen/admin/quotes_category_list__screen.dart';
+import 'package:quotes/screen/category_list_display_screen/category_list_screen.dart';
+import 'package:quotes/screen/display_screen/display_screen.dart';
 import 'package:quotes/screen/home/home_screen.dart';
-import 'package:quotes/screen/quote_write/quote_write_screen.dart';
-import 'package:quotes/screen/quotes_screen.dart';
-import 'package:quotes/screen/user_screen/user_screen.dart';
-import 'package:quotes/signup/signup_screen.dart';
-import 'package:quotes/splash/splash_screen.dart';
+import 'package:quotes/screen/login/login_screen.dart';
+import 'package:quotes/screen/profile_screen/profile_screen.dart';
+import 'package:quotes/screen/quote_write_screen/quote_write_screen.dart';
+import 'package:quotes/screen/signup/signup_screen.dart';
+import 'package:quotes/screen/splash/splash_screen.dart';
+import 'package:quotes/screen/usefull_quotes_screen/usefull_quotes_screen.dart';
+import 'package:quotes/screen/user_list_screen/user_list_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +36,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: SplashScreen.path,
       theme: ThemeData(
-        // fontFamily: "Lazy",
-        textTheme: TextTheme(),
-      ),
+          // fontFamily: "Lazy",
+          textTheme: TextTheme(),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.black,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.indigo[900]),
+            ),
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Colors.indigo[900])),
+
       initialRoute: HomeScreen.path,
       getPages: [
         GetPage(
@@ -57,24 +68,32 @@ class MyApp extends StatelessWidget {
           page: () => HomeScreen(),
         ),
         GetPage(
-          name: QuotesScreen.path,
-          page: () => QuotesScreen(),
+          name: DisplayScreen.path,
+          page: () => DisplayScreen(),
         ),
         GetPage(
-          name: UserScreen.path,
-          page: () => UserScreen(),
+          name: ProfileScreen.path,
+          page: () => ProfileScreen(),
         ),
         GetPage(
-          name: QuotesCategoryScreen.path,
-          page: () => QuotesCategoryScreen(),
+          name: QuotesCategoryListScreen.path,
+          page: () => QuotesCategoryListScreen(),
         ),
         GetPage(
-          name: CategoryScreen.path,
-          page: () => CategoryScreen(),
+          name: CategoryListScreen.path,
+          page: () => CategoryListScreen(),
         ),
         GetPage(
           name: QuoteWriteScreen.path,
           page: () => QuoteWriteScreen(),
+        ),
+        GetPage(
+          name: UserListScreen.path,
+          page: () => UserListScreen(),
+        ),
+        GetPage(
+          name: UseFullQuotesScreen.path,
+          page: () => UseFullQuotesScreen(),
         ),
       ],
     );

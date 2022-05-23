@@ -1,23 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:quotes/component/myspin.dart';
+import 'package:quotes/dialog/alert_logout.dart';
 import 'package:quotes/dialog/edit_user.dart';
 import 'package:quotes/firebase/storage/cloud_firestore.dart';
-import 'package:quotes/login/login_controller.dart';
-import 'package:quotes/login/login_screen.dart';
+import 'package:quotes/model/display_quote.dart';
 import 'package:quotes/model/user.dart';
-import 'package:quotes/screen/admin/quotes_category_screen.dart';
+import 'package:quotes/screen/admin/quotes_category_list__screen.dart';
+import 'package:quotes/screen/display_screen/display_screen.dart';
+import 'package:quotes/screen/login/login_controller.dart';
+import 'package:quotes/screen/login/login_screen.dart';
 
-class UserScreen extends StatefulWidget {
-  static String path = "/user_screen";
-  UserScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  static String path = "/profile_screen";
+  ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<ProfileScreen> createState() => _UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _UserScreenState extends State<ProfileScreen> {
   late Future<DocumentSnapshot> _fData;
 
   @override
@@ -108,25 +112,30 @@ class _UserScreenState extends State<UserScreen> {
                           padding: const EdgeInsets.only(right: 30.0),
                           child: Row(
                             children: const [
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: Colors.green,
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
+                              Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 30,
                               ),
-                              SizedBox(width: 10),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: Colors.red,
-                                child: Icon(
-                                  Icons.logout,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
-                              ),
+                              // CircleAvatar(
+                              //   radius: 15,
+                              //   backgroundColor: Colors.green,
+                              //   child: Icon(
+                              //     FontAwesomeIcons.person,
+                              //     color: Colors.white,
+                              //     size: 15,
+                              //   ),
+                              // ),
+                              // SizedBox(width: 10),
+                              // CircleAvatar(
+                              //   radius: 15,
+                              //   backgroundColor: Colors.red,
+                              //   child: Icon(
+                              //     Icons.logout,
+                              //     color: Colors.white,
+                              //     size: 15,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -244,9 +253,43 @@ class _UserScreenState extends State<UserScreen> {
                             Divider(height: 0),
                             ListTile(
                               onTap: () {
-                                Get.toNamed(QuotesCategoryScreen.path);
+                                Get.toNamed(QuotesCategoryListScreen.path);
                               },
-                              leading: Text("Quotes Categories"),
+                              leading: Icon(Icons.add_circle),
+                              title: Text("Add quotes Categories"),
+                              trailing: Icon(Icons.arrow_forward_ios_outlined),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                // print(
+                                //     DateTime.now().subtract(Duration(days: 1)));
+                                DisplayQuote displayQuote = DisplayQuote(
+                                  matchQuoteFeild: "",
+                                  searchQuoteType: "all",
+                                  title: "Select Quote of the day",
+                                );
+                                Get.toNamed(DisplayScreen.path,
+                                    arguments: [displayQuote]);
+                                // Get.toNamed(QuotesCategoryListScreen.path);
+                              },
+                              leading: Icon(Icons.update),
+                              title: Text("Update quote of the day"),
+                              trailing: Icon(Icons.arrow_forward_ios_outlined),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                DisplayQuote displayQuote = DisplayQuote(
+                                  matchQuoteFeild: "",
+                                  searchQuoteType: "slider_quotes",
+                                  title: "Slider Quotes",
+                                );
+                                Get.toNamed(
+                                  DisplayScreen.path,
+                                  arguments: [displayQuote],
+                                );
+                              },
+                              leading: Icon(Icons.change_circle),
+                              title: Text("Change slider quote"),
                               trailing: Icon(Icons.arrow_forward_ios_outlined),
                             ),
                             Divider(),
@@ -294,9 +337,7 @@ class _UserScreenState extends State<UserScreen> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (await Get.put(LoginController()).logout()) {
-                              Get.offAllNamed(LoginScreen.path);
-                            }
+                            alertLogOut(context: context);
                           },
                           child: const Text(
                             "Logout",

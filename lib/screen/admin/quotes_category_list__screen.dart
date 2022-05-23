@@ -6,20 +6,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:quotes/component/myspin.dart';
 import 'package:quotes/component/snakbar.dart';
-import 'package:quotes/dialog/add_quotes_category.dart';
-import 'package:quotes/dialog/quotes_image.dart';
+import 'package:quotes/screen/admin/dialog/add_quotes_category.dart';
+import 'package:quotes/screen/admin/dialog/add_quotes_image.dart';
 import 'package:quotes/firebase/storage/real_firebase.dart';
 import 'package:quotes/model/quotes_category.dart';
 
-class QuotesCategoryScreen extends StatefulWidget {
+class QuotesCategoryListScreen extends StatefulWidget {
   static String path = "/Quotes_category_screen";
-  QuotesCategoryScreen({Key? key}) : super(key: key);
+  QuotesCategoryListScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuotesCategoryScreen> createState() => _QuotesCategoryScreenState();
+  State<QuotesCategoryListScreen> createState() => _QuotesCategoryScreenState();
 }
 
-class _QuotesCategoryScreenState extends State<QuotesCategoryScreen> {
+class _QuotesCategoryScreenState extends State<QuotesCategoryListScreen> {
   late Stream _qcStream;
 
   @override
@@ -61,14 +61,26 @@ class _QuotesCategoryScreenState extends State<QuotesCategoryScreen> {
                       title: Text(k[i].toString().toUpperCase()),
                       trailing: IconButton(
                         onPressed: () async {
-                          if (await RealTimeDatabase.deleteCategory(
-                              qCat: k[i])) {
-                            showError(
-                              tital: "Success",
-                              message: "Successfully deleted ...",
+                          if (l.length > 4) {
+                            if (await RealTimeDatabase.deleteCategory(
+                                qCat: k[i])) {
+                              MySnakBar(
+                                tital: "Success",
+                                message: "Successfully deleted ...",
+                                icon: const Icon(
+                                  FontAwesomeIcons.check,
+                                  color: Colors.green,
+                                ),
+                              );
+                            }
+                          } else {
+                            MySnakBar(
+                              tital: "Warning",
+                              message:
+                                  "Atleast four category must be there ...",
                               icon: const Icon(
-                                Icons.add_task,
-                                color: Colors.green,
+                                Icons.warning,
+                                color: Colors.yellow,
                               ),
                             );
                           }

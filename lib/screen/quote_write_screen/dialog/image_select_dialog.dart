@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quotes/firebase/storage/cloud_firestore.dart';
 import 'package:quotes/firebase/storage/real_firebase.dart';
 import 'package:quotes/model/upload_quote.dart';
 import 'package:quotes/screen/home/home_screen.dart';
@@ -49,20 +50,20 @@ class _ImageSelectDialogState extends State<ImageSelectDialog> {
                 quote: widget.quote.toUpperCase(),
                 quote_category: widget.catName.toUpperCase(),
                 image: _selectedImage == "" ? "" : _selectedImage,
-                time_stemp: DateTime.now().millisecondsSinceEpoch.toString(),
+                time: DateTime.now().millisecondsSinceEpoch,
                 uid: FirebaseAuth.instance.currentUser!.uid.toString(),
+                searchType: widget.type,
               );
-              if (widget.type == "public") {
-                if (await RealTimeDatabase.uploadQuote(
-                    uploadQuote: uploadQuote)) {
-                  Get.offAndToNamed(HomeScreen.path);
-                }
-              } else {
-                print("Oops");
+
+              if (await MyCloudFireStore.uploadQuote(
+                  uploadQuote: uploadQuote)) {
+                Get.offAndToNamed(HomeScreen.path);
               }
             },
             icon: Icon(Icons.upload),
             label: Text("Upload"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black)),
           ),
         ],
       ),

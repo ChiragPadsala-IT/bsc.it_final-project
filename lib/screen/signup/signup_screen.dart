@@ -1,26 +1,24 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quotes/login/login_controller.dart';
 import 'package:quotes/screen/home/home_screen.dart';
-import 'package:quotes/signup/signup_screen.dart';
+import 'package:quotes/screen/login/login_screen.dart';
+import 'package:quotes/screen/signup/signup_controller.dart';
 
-class LoginScreen extends StatelessWidget {
-  static String path = "/login_screen";
+class SignUpScreen extends StatelessWidget {
+  static String path = "/signup_screen";
 
-  LoginScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
 
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _utextEditingController = TextEditingController();
   final TextEditingController _ptextEditingController = TextEditingController();
 
-  final logincontroller = Get.put(LoginController());
-
   late String email;
   late String password;
+
+  final signUpController = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   children: const [
                     Text(
-                      "Login",
+                      "Sign Up",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -93,16 +91,16 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       _formkey.currentState!.save();
-                      if (await logincontroller.loginWithEmailAndPassword(
+                      if (await signUpController.signUpWithEmailAndPassword(
                         email: email,
                         password: password,
                       )) {
-                        Get.offAllNamed(HomeScreen.path);
+                        Get.toNamed(HomeScreen.path);
                       }
                     }
                   },
                   child: const Text(
-                    "Login",
+                    "Sign Up",
                     style: TextStyle(letterSpacing: 1),
                   ),
                   style: ButtonStyle(
@@ -116,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: () async {
-                    if (await logincontroller.loginWithGoogle()) {
+                    if (await signUpController.signInWithGoogle()) {
                       Get.toNamed(HomeScreen.path);
                     }
                   },
@@ -131,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            "Login with Google",
+                            "Sign Up with Google",
                             style: TextStyle(letterSpacing: 1),
                           ),
                         ),
@@ -151,12 +149,12 @@ class LoginScreen extends StatelessWidget {
                     text: "Do you don't have account?",
                     children: [
                       TextSpan(
-                        text: "\tSign Up",
+                        text: "\tLogin",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.toNamed(SignUpScreen.path);
+                            Get.offAllNamed(LoginScreen.path);
                           },
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.blue,
                         ),
                       ),

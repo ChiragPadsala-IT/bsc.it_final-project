@@ -2,10 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:quotes/component/myspin.dart';
 import 'package:quotes/firebase/storage/real_firebase.dart';
-import 'package:quotes/screen/quote_write/image_select_dialog.dart';
+import 'package:quotes/screen/quote_write_screen/dialog/image_select_dialog.dart';
 
 class QuoteWriteScreen extends StatefulWidget {
   static String path = "/quote_write_screen";

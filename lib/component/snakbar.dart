@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-showError({
+MySnakBar({
   String tital = "",
   required String message,
   required Icon icon,

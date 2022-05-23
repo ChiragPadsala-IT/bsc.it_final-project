@@ -34,7 +34,21 @@ class _AddQuotesCategoryState extends State<AddQuotesCategory> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Category :"),
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 10),
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  color: Colors.grey[700],
+                  child: Text(
+                    "Category :",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+
+                // Text(""),
                 TextFormField(
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
@@ -57,10 +71,25 @@ class _AddQuotesCategoryState extends State<AddQuotesCategory> {
                   },
                 ),
                 SizedBox(height: 10),
-                Text("Image URL"),
-                for (int i = 0; i < l; i++)
+                // Text("Image URL"),
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 10),
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  color: Colors.grey[700],
+                  child: Text(
+                    "Image URL :",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+
+                for (int i = 1; i <= l; i++)
                   TextFormField(
-                    textInputAction: TextInputAction.next,
+                    textInputAction:
+                        i == l ? TextInputAction.done : TextInputAction.next,
                     keyboardType: TextInputType.name,
                     decoration: const InputDecoration(
                       hintText: "Add URL",
@@ -91,14 +120,16 @@ class _AddQuotesCategoryState extends State<AddQuotesCategory> {
                       onPressed: () {
                         setState(
                           () {
-                            l--;
+                            if (l > 1) {
+                              l--;
+                            }
                           },
                         );
                       },
                       minWidth: 10,
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      child: Icon(Icons.remove, size: 15),
+                      // color: Colors.grey,
+                      textColor: Colors.orangeAccent,
+                      child: Icon(Icons.remove, size: 25),
                       shape: CircleBorder(),
                     ),
                     MaterialButton(
@@ -110,9 +141,9 @@ class _AddQuotesCategoryState extends State<AddQuotesCategory> {
                         );
                       },
                       minWidth: 10,
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      child: Icon(Icons.add, size: 15),
+                      // color: Colors.deepOrange,
+                      textColor: Colors.deepOrange,
+                      child: Icon(Icons.add, size: 25),
                       shape: CircleBorder(),
                     ),
                   ],

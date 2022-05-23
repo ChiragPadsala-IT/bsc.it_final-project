@@ -1,10 +1,5 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
-import 'package:quotes/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static String path = "/splash_screen";

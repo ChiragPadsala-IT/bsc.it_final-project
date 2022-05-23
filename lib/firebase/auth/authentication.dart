@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,6 +9,13 @@ import 'package:quotes/component/snakbar.dart';
 class myAuth {
   static GoogleSignIn? googleSignIn;
   static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  static late Timer timer;
+  static checkEmailVerifide() async {
+    firebaseAuth.currentUser!.reload();
+    if (firebaseAuth.currentUser!.emailVerified) {
+      timer.cancel();
+    }
+  }
 
   static Future signUpWithEmailAndPassword({
     required String email,
@@ -18,8 +27,18 @@ class myAuth {
           email: email,
           password: password,
         );
+        firebaseAuth.currentUser!.sendEmailVerification();
+        timer = Timer.periodic(
+          const Duration(seconds: 5),
+          (timer) async {
+            print('******************' +
+                timer.toString() +
+                '*******************');
+            checkEmailVerifide();
+          },
+        );
       } else {
-        showError(
+        MySnakBar(
           tital: "Internet Error",
           message: "Check your internet connectivity ... ",
           icon: const Icon(
@@ -31,7 +50,7 @@ class myAuth {
       }
       return true;
     } on FirebaseAuthException catch (err) {
-      showError(
+      MySnakBar(
         tital: err.code.toString(),
         message: err.message.toString(),
         icon: const Icon(
@@ -58,7 +77,7 @@ class myAuth {
         print("padsala");
         print("*************************************************");
       } else {
-        showError(
+        MySnakBar(
           tital: "Internet Error",
           message: "Check your internet connectivity ... ",
           icon: const Icon(
@@ -70,7 +89,7 @@ class myAuth {
       }
       return true;
     } on FirebaseAuthException catch (err) {
-      showError(
+      MySnakBar(
         tital: err.code.toString(),
         message: err.message.toString(),
         icon: const Icon(
@@ -108,7 +127,7 @@ class myAuth {
         print("*****************padsala*********************");
         return true;
       } else {
-        showError(
+        MySnakBar(
           tital: "Internet Error",
           message: "Check your internet connectivity ... ",
           icon: const Icon(
@@ -119,7 +138,7 @@ class myAuth {
         return false;
       }
     } on FirebaseAuthException catch (err) {
-      showError(
+      MySnakBar(
         tital: err.code.toString(),
         message: err.message.toString(),
         icon: const Icon(
@@ -145,7 +164,7 @@ class myAuth {
       }
       return true;
     } on FirebaseAuthException catch (err) {
-      showError(
+      MySnakBar(
         tital: err.code.toString(),
         message: err.message.toString(),
         icon: const Icon(

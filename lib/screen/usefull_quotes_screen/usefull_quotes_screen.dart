@@ -15,7 +15,7 @@ class UseFullQuotesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Usefull Quotes"),
+        title: const Text("Usefull Quotes"),
         centerTitle: true,
       ),
       body: Obx(

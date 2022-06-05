@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:quotes/component/screen_overlay_load.dart';
 import 'package:quotes/screen/home/home_screen.dart';
+import 'package:quotes/screen/login/Forgot_dialog/forgot_dialog.dart';
 import 'package:quotes/screen/login/login_controller.dart';
+import 'package:quotes/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:quotes/screen/signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,7 +26,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width / 10),
@@ -31,18 +35,38 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  height: 175,
+                  width: 175,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(bottom: 50),
+                  // color: Colors.black,
+                  child: Image.asset(
+                    "assets/image/splash_screen/icon_image.png",
+                    // fit: BoxFit.fill,
+                  ),
+                ),
+                // Container(
+                //   height: 100,
+                //   width: 100,
+                //   child: Image.network(
+                //     "https://cpng.pikpng.com/pngl/s/184-1840024_athletics-forms-transparent-background-forms-icon-clipart.png",
+                //   ),
+                // ),
                 Row(
                   children: const [
                     Text(
                       "Login",
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.black,
+                        letterSpacing: 1,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: _utextEditingController,
                   keyboardType: TextInputType.emailAddress,
@@ -57,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                     if (GetUtils.isEmail(val!)) {
                       return null;
                     }
-                    return "Invalid emial address";
+                    return "Invalid email address";
                   },
                   onSaved: (val) {
                     email = val!;
@@ -86,16 +110,37 @@ class LoginScreen extends StatelessWidget {
                     password = val!;
                   },
                 ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        text: "Forgot password? ",
+                        style: TextStyle(color: Colors.blue[700]),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.dialog(ForgotDialog());
+                          },
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       _formkey.currentState!.save();
+                      myScreenOverlay(context: context, message: "");
                       if (await logincontroller.loginWithEmailAndPassword(
                         email: email,
                         password: password,
                       )) {
+                        Get.back();
+                        await Get.dialog(OnBoardingDialog());
                         Get.offAllNamed(HomeScreen.path);
+                      } else {
+                        Get.back();
                       }
                     }
                   },
@@ -110,12 +155,18 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 7),
-                const Center(child: Text("OR")),
+                const Center(
+                  child: Text(
+                    "OR",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: () async {
                     if (await logincontroller.loginWithGoogle()) {
-                      Get.toNamed(HomeScreen.path);
+                      await Get.dialog(OnBoardingDialog());
+                      Get.offAndToNamed(HomeScreen.path);
                     }
                   },
                   child: Row(
@@ -147,16 +198,17 @@ class LoginScreen extends StatelessWidget {
                 Text.rich(
                   TextSpan(
                     text: "Do you don't have account?",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                         text: "\tSign Up",
+                        style: const TextStyle(
+                          color: Colors.blue,
+                        ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Get.toNamed(SignUpScreen.path);
                           },
-                        style: const TextStyle(
-                          color: Colors.blue,
-                        ),
                       ),
                     ],
                   ),

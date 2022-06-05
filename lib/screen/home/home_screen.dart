@@ -7,6 +7,7 @@ import 'package:quotes/dialog/alert_logout.dart';
 import 'package:quotes/model/display_quote.dart';
 import 'package:quotes/screen/display_screen/display_screen.dart';
 import 'package:quotes/screen/home/component/usefull_quote.dart';
+import 'package:quotes/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:quotes/screen/usefull_quotes_screen/usefull_quotes_screen.dart';
 import 'package:quotes/screen/home/component/user_quotes.dart';
 import 'package:quotes/screen/home/component/categories_quotes.dart';
@@ -59,8 +60,9 @@ class HomeScreen extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () {
             Get.toNamed(QuoteWriteScreen.path);
+            // Get.dialog(OnBoardingDialog());
           },
-          child: Icon(FontAwesomeIcons.pencil),
+          child: Icon(FontAwesomeIcons.penToSquare),
           heroTag: "write_quotes",
         ),
       ),

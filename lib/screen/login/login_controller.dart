@@ -30,10 +30,15 @@ class LoginController extends GetxController {
   }
 
   Future logout() async {
-    if (await myAuth.signOut()) {
-      return true;
-    } else {
-      return false;
-    }
+    return await myAuth.signOut();
+    // if (await myAuth.signOut()) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  }
+
+  Future forgotPassword({required String email}) async {
+    return await myAuth.forgotPassword(email: email);
   }
 }

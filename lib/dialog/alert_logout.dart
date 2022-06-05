@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quotes/screen/login/login_controller.dart';
@@ -9,15 +8,15 @@ alertLogOut({required BuildContext context}) {
   return Alert(
       context: context,
       // type: AlertType.error,
-
+      onWillPopActive: true,
       title: "Are you sure ?",
       content: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: Image.asset("assets/image/alert_dialog/logout.jpg", scale: 3),
       ),
       buttons: [
         DialogButton(
-          child: Text(
+          child: const Text(
             "No",
             style: TextStyle(
               color: Colors.white,
@@ -31,7 +30,7 @@ alertLogOut({required BuildContext context}) {
           },
         ),
         DialogButton(
-          child: Text(
+          child: const Text(
             "Yes",
             style: TextStyle(
               color: Colors.white,
@@ -41,7 +40,8 @@ alertLogOut({required BuildContext context}) {
           ),
           color: Colors.red,
           onPressed: () async {
-            if (await Get.find<LoginController>().logout()) {
+            final controller = Get.put(LoginController());
+            if (await controller.logout()) {
               Get.offAllNamed(LoginScreen.path);
             }
           },

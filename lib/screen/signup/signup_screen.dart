@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:quotes/dialog/verify_your_email.dart';
 import 'package:quotes/screen/home/home_screen.dart';
 import 'package:quotes/screen/login/login_screen.dart';
+import 'package:quotes/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:quotes/screen/signup/signup_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -31,18 +35,31 @@ class SignUpScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  height: 175,
+                  width: 175,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(bottom: 50),
+                  // color: Colors.black,
+                  child: Image.asset(
+                    "assets/image/splash_screen/icon_image.png",
+                    // fit: BoxFit.fill,
+                  ),
+                ),
                 Row(
                   children: const [
                     Text(
                       "Sign Up",
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.black,
+                        letterSpacing: 1,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: _utextEditingController,
                   keyboardType: TextInputType.emailAddress,
@@ -91,11 +108,18 @@ class SignUpScreen extends StatelessWidget {
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       _formkey.currentState!.save();
+
                       if (await signUpController.signUpWithEmailAndPassword(
                         email: email,
                         password: password,
+                        context: context,
                       )) {
-                        Get.toNamed(HomeScreen.path);
+                        _formkey.currentState!.reset();
+                        await verifyemail(context: context);
+                        // verifyemail(context: context);
+                        // if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                        //   Get.offAllNamed(HomeScreen.path);
+                        // }
                       }
                     }
                   },
@@ -110,12 +134,17 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 7),
-                const Center(child: Text("OR")),
+                const Center(
+                    child: Text(
+                  "OR",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
                 const SizedBox(height: 7),
                 ElevatedButton(
                   onPressed: () async {
                     if (await signUpController.signInWithGoogle()) {
-                      Get.toNamed(HomeScreen.path);
+                      await Get.dialog(OnBoardingDialog());
+                      Get.offAndToNamed(HomeScreen.path);
                     }
                   },
                   child: Row(
@@ -147,6 +176,7 @@ class SignUpScreen extends StatelessWidget {
                 Text.rich(
                   TextSpan(
                     text: "Do you don't have account?",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                         text: "\tLogin",

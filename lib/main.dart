@@ -34,22 +34,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // initialRoute: SplashScreen.path,
-      theme: ThemeData(
-          // fontFamily: "Lazy",
-          textTheme: TextTheme(),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.black,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.indigo[900]),
-            ),
-          ),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: Colors.indigo[900])),
-
-      initialRoute: HomeScreen.path,
+      initialRoute: SplashScreen.path,
+      color: Colors.indigo,
+      title: "MyQuotes",
       getPages: [
         GetPage(
           name: SplashScreen.path,
@@ -93,9 +80,22 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: UseFullQuotesScreen.path,
-          page: () => UseFullQuotesScreen(),
+          page: () => const UseFullQuotesScreen(),
         ),
       ],
+      theme: ThemeData(
+        textTheme: const TextTheme(),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.indigo[900]),
+          ),
+        ),
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: Colors.indigo[900]),
+      ),
     );
   }
 }

@@ -76,15 +76,15 @@ class _QuoteWriteScreenState extends State<QuoteWriteScreen> {
                           return ListTile(
                             title: Text(e.key.toString().toUpperCase()),
                             leading: Icon(Icons.list_alt),
-                            trailing: Container(
-                              height: 30,
-                              width: 30,
-                              color: Colors.amber,
-                              // decoration: BoxDecoration(
-                              //     image: DecorationImage(
-                              //   image: NetworkImage(""),
-                              // )),
-                            ),
+                            // trailing: Container(
+                            //   height: 30,
+                            //   width: 30,
+                            //   color: Colors.amber,
+                            //   // decoration: BoxDecoration(
+                            //   //     image: DecorationImage(
+                            //   //   image: NetworkImage(""),
+                            //   // )),
+                            // ),
                             onTap: () {
                               setState(() {
                                 catName = e.key.toString();

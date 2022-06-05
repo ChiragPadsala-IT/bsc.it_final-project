@@ -46,7 +46,7 @@ class _HomeSliderState extends State<HomeSlider> {
                           padding: EdgeInsets.symmetric(horizontal: 25),
                           child: Text(
                             e["quote"],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CupertinoColors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -56,7 +56,7 @@ class _HomeSliderState extends State<HomeSlider> {
                           decoration: BoxDecoration(
                             // color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 offset: Offset(2, 2),
                                 color: Colors.black45,
@@ -71,7 +71,7 @@ class _HomeSliderState extends State<HomeSlider> {
                             image: DecorationImage(
                               image: NetworkImage(e["image"]),
                               fit: BoxFit.fill,
-                              colorFilter: new ColorFilter.mode(
+                              colorFilter: ColorFilter.mode(
                                 Colors.black.withOpacity(0.5),
                                 BlendMode.darken,
                               ),
@@ -83,7 +83,7 @@ class _HomeSliderState extends State<HomeSlider> {
                   aspectRatio: 4 / 2.2,
                   enlargeCenterPage: true,
                   pageSnapping: true,
-                  // autoPlay: true,
+                  autoPlay: true,
                   autoPlayCurve: Curves.easeInOut,
                   // onPageChanged: (i, CarouselPageChangedReason val) {
                   //   print(i);

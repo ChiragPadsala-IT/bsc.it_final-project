@@ -100,7 +100,7 @@ class _QuoteCardState extends State<QuoteCard> {
                       // SizedBox.expand
                       Container(
                         height: Get.width,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.amber,
                           gradient: LinearGradient(
                             colors: [Colors.indigo, Colors.orange],
@@ -359,7 +359,8 @@ class _QuoteCardState extends State<QuoteCard> {
                                             context: context,
                                             message: "wait a minute",
                                           );
-                                          if (widget.quoteLength < 4) {
+                                          if (widget.searchType != "favorite" &&
+                                              widget.quoteLength < 4) {
                                             Get.back();
                                             MySnakBar(
                                               tital: "Warning",
@@ -420,7 +421,7 @@ class _QuoteCardState extends State<QuoteCard> {
                                           );
                                         }
                                       },
-                                      icon: Icon(Icons.add_circle),
+                                      icon: Icon(Icons.star),
                                       iconSize: 35,
                                       color: Colors.amber,
                                     ),

@@ -41,9 +41,8 @@ class _HomeSliderState extends State<HomeSlider> {
                 items: d
                     .map((e) => Container(
                           width: Get.width / 0.25,
-                          margin: EdgeInsets.all(5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: Text(
                             e["quote"],
                             style: const TextStyle(

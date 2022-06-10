@@ -58,8 +58,9 @@ class _CategoriesQuotesState extends State<CategoriesQuotes> {
                         padding:
                             EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         color: Colors.grey[700],
-                        child: Text(
+                        child: const Text(
                           "Quotes Category",
+                          // "Hello world",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,

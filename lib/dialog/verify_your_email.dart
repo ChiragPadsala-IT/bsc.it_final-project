@@ -8,7 +8,7 @@ verifyemail({required BuildContext context}) {
     type: AlertType.success,
     closeFunction: null,
     closeIcon: null,
-    onWillPopActive: true,
+    onWillPopActive: false,
     content: Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: const Text(

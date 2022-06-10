@@ -15,8 +15,6 @@ class ApiController extends GetxController {
       List data = jsonDecode(response.body);
 
       dataList.value = data.obs;
-    } else {
-      return response.body;
     }
   }
 

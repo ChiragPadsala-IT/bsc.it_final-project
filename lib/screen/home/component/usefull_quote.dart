@@ -18,10 +18,10 @@ class UseFullQuotes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 20),
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               color: Colors.grey[700],
-              child: Text(
+              child: const Text(
                 "UseFull Quotes",
                 style: TextStyle(
                   color: Colors.white,
@@ -34,8 +34,8 @@ class UseFullQuotes extends StatelessWidget {
               width: Get.width,
               height: 150,
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: Text(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: const Text(
                 "Some User Full Quotes >>>",
                 style: TextStyle(
                   color: CupertinoColors.white,
@@ -61,10 +61,10 @@ class UseFullQuotes extends StatelessWidget {
                   ),
                 ],
                 image: DecorationImage(
-                  image: AssetImage(
+                  image: const AssetImage(
                       "assets/image/usefull_quote/usefull_quotes.jpg"),
                   fit: BoxFit.fill,
-                  colorFilter: new ColorFilter.mode(
+                  colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.5),
                     BlendMode.darken,
                   ),

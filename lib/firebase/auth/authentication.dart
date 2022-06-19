@@ -13,7 +13,7 @@ import 'package:quotes/screen/login/login_screen.dart';
 
 class myAuth {
   static GoogleSignIn? googleSignIn;
-  static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   static late Timer timer;
 
   static checkEmailVerifide({required BuildContext context}) async {
@@ -89,26 +89,42 @@ class myAuth {
   }) async {
     try {
       if (await checkConnectivity()) {
-        print("*************************************************");
-        print("chirag");
-        await firebaseAuth.signInWithEmailAndPassword(
+        await firebaseAuth
+            .signInWithEmailAndPassword(
           email: email,
           password: password,
+        )
+            .catchError(
+          (err) {
+            Get.back();
+            MySnakBar(
+              tital: err.hashCode.toString(),
+              message: err.message.toString(),
+              icon: const Icon(
+                Icons.error,
+                color: Colors.red,
+              ),
+            );
+          },
         );
 
-        if (FirebaseAuth.instance.currentUser!.emailVerified) {
-          return true;
-        } else {
-          MySnakBar(
-            tital: "Verification error",
-            message: "Email is not verified ... ",
-            icon: const Icon(
-              FontAwesomeIcons.question,
-              color: Colors.red,
-            ),
-          );
-          return false;
-        }
+        Get.back();
+
+        return firebaseAuth.currentUser!.emailVerified;
+
+        // if (firebaseAuth.currentUser!.emailVerified) {
+        //   return true;
+        // } else {
+        //   MySnakBar(
+        //     tital: "Verification error",
+        //     message: "Email is not verified ... ",
+        //     icon: const Icon(
+        //       FontAwesomeIcons.question,
+        //       color: Colors.red,
+        //     ),
+        //   );
+        //   return false;
+        // }
       } else {
         MySnakBar(
           tital: "Internet Error",
@@ -120,7 +136,7 @@ class myAuth {
         );
         return false;
       }
-    } on FirebaseAuthException catch (err) {
+    } on FirebaseException catch (err) {
       MySnakBar(
         tital: err.code.toString(),
         message: err.message.toString(),

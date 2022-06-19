@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quotes/component/myspin.dart';
 import 'package:quotes/screen/category_list_display_screen/category_list_screen.dart';
 import 'package:quotes/screen/category_list_display_screen/component/category_card.dart';
 import 'package:quotes/firebase/storage/real_firebase.dart';
@@ -135,7 +136,7 @@ class _CategoriesQuotesState extends State<CategoriesQuotes> {
             );
           }
         }
-        return Text("data");
+        return Center(child: MySpin());
       },
     );
   }

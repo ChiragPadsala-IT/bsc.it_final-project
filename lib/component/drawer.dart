@@ -98,11 +98,6 @@ class MyDrawer extends StatelessWidget {
                     Get.toNamed(DisplayScreen.path, arguments: [displayQuote]);
                   },
                 ),
-                ListTile(
-                  title: Text("About Us"),
-                  leading: Icon(Icons.person),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
               ],
             ),
             Column(

@@ -62,7 +62,13 @@ class _QuoteWriteScreenState extends State<QuoteWriteScreen> {
                 ),
               ),
               (isDone && catName == "Select Category")
-                  ? Text("Error")
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        "select category",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    )
                   : Material(),
               ExpansionTile(
                 title: Text(catName.toUpperCase()),

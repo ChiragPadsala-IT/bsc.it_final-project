@@ -10,6 +10,8 @@ import 'package:quotes/screen/login/login_controller.dart';
 import 'package:quotes/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:quotes/screen/signup/signup_screen.dart';
 
+import '../../component/snakbar.dart';
+
 class LoginScreen extends StatelessWidget {
   static String path = "/login_screen";
 
@@ -141,7 +143,16 @@ class LoginScreen extends StatelessWidget {
                         Get.offAllNamed(HomeScreen.path);
                       } else {
                         Get.back();
+                        MySnakBar(
+                          tital: "Verification error",
+                          message: "Email is not verified ... ",
+                          icon: const Icon(
+                            FontAwesomeIcons.question,
+                            color: Colors.red,
+                          ),
+                        );
                       }
+                      // Get.back();
                     }
                   },
                   child: const Text(

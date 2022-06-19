@@ -137,8 +137,6 @@ class _QuoteCardState extends State<QuoteCard> {
                         alignment: Alignment.center,
                         child: Text(
                           widget.quote,
-                          // "https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2018/10/bluebells,_oxfordshire.jpg?fit=1500%2C1000&ssl=1",
-                          // dataList[i].quotes,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -149,54 +147,6 @@ class _QuoteCardState extends State<QuoteCard> {
                     ],
                   ),
                 ),
-                // widget.docID != ""
-                //     ? Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: Align(
-                //           alignment: Alignment.topRight,
-                //           child: IconButton(
-                //             icon: Icon(
-                //               Icons.delete,
-                //               color: Colors.red,
-                //             ),
-                //             onPressed: () async {
-                //               String t = widget.quote;
-                //               myScreenOverlay(
-                //                 context: context,
-                //                 message: "wait a minute",
-                //               );
-                //               if (widget.quoteLength < 4) {
-                //                 Get.back();
-                //                 MySnakBar(
-                //                   tital: "Warning",
-                //                   message: "Minimum 3 quotes must be there...",
-                //                   icon: Icon(
-                //                     Icons.warning,
-                //                     color: Colors.yellow,
-                //                   ),
-                //                 );
-                //               } else {
-                //                 if (await MyCloudFireStore.deleteQuote(
-                //                   deleteFromWhere: widget.searchType,
-                //                   docID: widget.docID,
-                //                 )) {
-                //                   Get.back();
-                //                   MySnakBar(
-                //                     tital: "Success",
-                //                     message: "This quote deleted : " + t,
-                //                     icon: Icon(
-                //                       FontAwesomeIcons.check,
-                //                       color: Colors.green,
-                //                     ),
-                //                   );
-                //                 }
-                //                 widget.myCallBack();
-                //               }
-                //             },
-                //           ),
-                //         ),
-                //       )
-                //     : Container(),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
@@ -303,17 +253,6 @@ class _QuoteCardState extends State<QuoteCard> {
                                   if (val == 0) {
                                     await Share.share(widget.quote);
                                   } else {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           const ScreenOverlayLoad()),
-                                    // );
-                                    // Alert(
-                                    //   context: context,
-
-                                    //   content: MySpin(),
-                                    // ).show();
                                     myScreenOverlay(
                                         context: context,
                                         message:
@@ -334,16 +273,6 @@ class _QuoteCardState extends State<QuoteCard> {
                                   ];
                                 },
                               ),
-                              // IconButton(
-                              //   onPressed: () async {
-                              //     // await saveImage(listOfGlobalKey[i]);
-                              //   },
-                              //   icon: Icon(
-                              //     Icons.download_rounded,
-                              //     color: Colors.green,
-                              //   ),
-                              //   iconSize: 35,
-                              // ),
                               widget.docID != ""
                                   ? Align(
                                       alignment: Alignment.topRight,
@@ -359,7 +288,8 @@ class _QuoteCardState extends State<QuoteCard> {
                                             context: context,
                                             message: "wait a minute",
                                           );
-                                          if (widget.searchType != "favorite" &&
+                                          if (widget.searchType ==
+                                                  "slider_quotes" &&
                                               widget.quoteLength < 4) {
                                             Get.back();
                                             MySnakBar(

@@ -114,6 +114,7 @@ class SignUpScreen extends StatelessWidget {
                       context: context,
                     )) {
                       _formkey.currentState!.reset();
+                      Get.back();
                       await verifyemail(context: context);
                       // verifyemail(context: context);
                       // if (FirebaseAuth.instance.currentUser!.emailVerified) {

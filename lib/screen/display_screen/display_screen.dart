@@ -51,7 +51,6 @@ class _DisplayScreenState extends State<DisplayScreen> {
         title: Text(data.title.toUpperCase()),
         centerTitle: true,
       ),
-
       body: FutureBuilder(
         future: _future,
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -84,40 +83,10 @@ class _DisplayScreenState extends State<DisplayScreen> {
                           searchType: data.searchQuoteType,
                           quoteLength: documentList.length,
                           myCallBack: () async {
-                            // if (documentList.length > 3) {
-                            //   String t = map["quote"];
-                            //   myScreenOverlay(
-                            //     context: context,
-                            //     message: "wait a minute",
-                            //   );
-                            //   if (await MyCloudFireStore.deleteQuote(
-                            //     deleteFromWhere: data.searchQuoteType,
-                            //     docID: docID,
-                            //   )) {
-                            //     Get.back();
-                            //     MySnakBar(
-                            //       tital: "Success",
-                            //       message: "This quote deleted : " + t,
-                            //       icon: Icon(
-                            //         FontAwesomeIcons.check,
-                            //         color: Colors.green,
-                            //       ),
-                            //     );
-                            //   }
                             setState(() {
                               _future =
                                   MyCloudFireStore.getQuote(displayQuote: data);
                             });
-                            // } else {
-                            //   MySnakBar(
-                            //     tital: "Warning",
-                            //     message: "3 quotes must be there ...",
-                            //     icon: Icon(
-                            //       Icons.warning,
-                            //       color: Colors.yellow,
-                            //     ),
-                            //   );
-                            // }
                           },
                         );
                       },
@@ -161,61 +130,6 @@ class _DisplayScreenState extends State<DisplayScreen> {
           return MySpin();
         },
       ),
-
-      // body: StreamBuilder(
-      //   stream: _stream,
-      //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      //     if (snapshot.hasData) {
-      //       // Map data = snapshot.data!.data() as Map<String, dynamic>;
-      //       print(snapshot.data!.docs);
-      //       List<QueryDocumentSnapshot> l1 = snapshot.data!.docs;
-      //       l1.forEach((element) => print(element.data()));
-      //       if (l1.isNotEmpty) {
-      //         return ListView.builder(
-      //           physics: const BouncingScrollPhysics(),
-      //           itemCount: l1.length,
-      //           itemBuilder: (context, i) {
-      //             Map data = l1[i].data() as Map;
-      //             print(data);
-      //             return QuoteCard(
-      //               image: data["image"],
-      //               quote: data["quote"],
-      //             );
-      //           },
-      //         );
-      //       }
-      //       return Center(
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           children: [
-      //             Container(
-      //               height: 200,
-      //               width: 200,
-      //               decoration: const BoxDecoration(
-      //                 color: Colors.white,
-      //                 image: DecorationImage(
-      //                   image: NetworkImage(
-      //                     "https://thumbs.dreamstime.com/b/emoticon-sorry-sign-vector-illustration-white-background-190484787.jpg",
-      //                   ),
-      //                   fit: BoxFit.fill,
-      //                 ),
-      //               ),
-      //             ),
-      //             SizedBox(height: 10),
-      //             Text(
-      //               "There is no quote...",
-      //               style: TextStyle(
-      //                 fontSize: 24,
-      //                 fontWeight: FontWeight.w700,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       );
-      //     }
-      //     return MySpin();
-      //   },
-      // ),
     );
   }
 
@@ -234,7 +148,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
             if (totalQuote < 6) {
               await Alert(
                 context: context,
-                title: "Add Image",
+                title: "Add New Slide Quotes",
                 closeIcon: null,
                 content: Form(
                   key: _fkey,
@@ -322,13 +236,6 @@ class _DisplayScreenState extends State<DisplayScreen> {
                 ],
               ).show();
 
-              // DisplayQuote displayQuote = DisplayQuote(
-              //   matchQuoteFeild: "",
-              //   searchQuoteType: "all",
-              //   title: "Select Quote of the day",
-              // );
-              // Get.toNamed(DisplayScreen.path,
-              //     arguments: [displayQuote]);
               UploadQuote uploadQuote = UploadQuote(
                 image: imageUrl,
                 quote: newQuote,
@@ -352,11 +259,6 @@ class _DisplayScreenState extends State<DisplayScreen> {
                   ),
                 );
               }
-              // print("******************chirag***************************");
-              // print(quoteEditingController.text);
-              // print(imageEditingController.text);
-              // print("*********************padsala************************");
-
             } else {
               MySnakBar(
                 tital: "Warning",
